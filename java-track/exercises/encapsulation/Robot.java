@@ -7,24 +7,24 @@ public class Robot {
 	private int y;
 	private int speed;
 	private String orientation;
-	
+
 	//getters
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public int getX() {
 		return this.x;
 	}
-	
+
 	public int getY() {
 		return this.y;
 	}
-	
+
 	public int getSpeed() {
 		return this.speed;
 	}
-	
+
 	public String getOrientation() {
 		return this.orientation;
 	}
@@ -39,42 +39,42 @@ public class Robot {
 
 	public String move(int turns) {
 		while(turns > 0) {
-		if (this.orientation == "north") {
-			this.y += this.speed;
-		} else if (this.orientation == "south") {
-			this.y -= this.speed;
-		} else if (this.orientation == "east") {
-			this.x += this.speed;
-		} else if (this.orientation == "west") {
-			this.x -= this.speed;
+			if (this.orientation.equals("north")) {
+				this.y += this.speed;
+			} else if (this.orientation.equals("south")) {
+				this.y -= this.speed;
+			} else if (this.orientation.equals("east")) {
+				this.x += this.speed;
+			} else if (this.orientation.equals("west")) {
+				this.x -= this.speed;
+			}
+			turns--;
 		}
-		turns--;
-		}
-		return "Your position is now: (" + this.x + ", " + this.y + ")";
+		return "Position is now: (" + this.x + ", " + this.y + ")";
 
 	}
 
 	public String turnLeft() {
-		if (this.orientation == "north") {
+		if (this.orientation.equals("north")) {
 			this.orientation = "west";
-		} else if (this.orientation == "south") {
+		} else if (this.orientation.equals("south")) {
 			this.orientation = "east";
-		} else if (this.orientation == "east") {
+		} else if (this.orientation.equals("east")) {
 			this.orientation = "north";
-		} else if (this.orientation == "west") {
+		} else if (this.orientation.equals("west")) {
 			this.orientation = "south";
 		}
 		return "Your robot is now facing " + this.orientation;
 	}
 
 	public void turnRight() {
-		if (this.orientation == "north") {
+		if (this.orientation.equals("north")) {
 			this.orientation = "east";
-		} else if (this.orientation == "south") {
+		} else if (this.orientation.equals("south")) {
 			this.orientation = "west";
-		} else if (this.orientation == "east") {
+		} else if (this.orientation.equals("east")) {
 			this.orientation = "south";
-		} else if (this.orientation == "west") {
+		} else if (this.orientation.equals("west")) {
 			this.orientation = "north";
 		}
 		System.out.println("Your robot is now facing " + this.orientation);
@@ -88,16 +88,13 @@ public class Robot {
 	}
 
 	public String toString() {
-		return "Robot name: " + this.name + "\n" +
-				"Position: (" + this.x + ", " + this.y + ") \n" +
-				"Orientation: " + this.orientation + "\n" + 
-				"Speed: " + this.speed;
+		return "Robot name: " + this.name + " | Position: (" + this.x + ", " + this.y + ")" +
+				" | Orientation: " + this.orientation + " | Speed: " + this.speed;
 	}
 
 	public static void main(String[] args) {
-		Robot Alpha = new Robot("Alpha", 1, 1, 2, "North");
-		Robot Beta = new Robot("Beta", 5, 5, 1, "East");
-		System.out.println(Alpha.distanceFrom(Beta));
+		Robot Alpha = new Robot("Alpha", 1, 1, 3, "north");
+		System.out.println(Alpha.move(3));
 
 
 	}

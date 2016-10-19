@@ -7,7 +7,7 @@ public class RobotMenu {
 
 	private Scanner in;
 	private ArrayList<Robot> robots;
-	
+
 	public RobotMenu() {
 		in = new Scanner(System.in);
 		robots = new ArrayList<Robot>();
@@ -15,6 +15,7 @@ public class RobotMenu {
 
 
 	public int displayMenu() {
+		System.out.println("------------------------------------------------");
 		System.out.println("Welcome to the computer menu!");
 		System.out.println("1. Create a robot");
 		System.out.println("2. Display the list of available robots");
@@ -57,7 +58,7 @@ public class RobotMenu {
 		}
 
 	}
-	
+
 	public void createRobot() {
 		System.out.println("Welcome to the Robot Creation Menu!");
 		System.out.println();
@@ -75,29 +76,66 @@ public class RobotMenu {
 			System.out.println("Sorry, that is not a valid orientation, please try again:");
 			orientation = in.next();
 		}
-		System.out.println("Thank you, your new robot is now being created...");
+		System.out.println();
+		System.out.println("Thank you, your new robot has been created!");
 		robots.add(new Robot(name, x, y, speed, orientation));
-		System.out.println("Success!");
-		
+		System.out.println();
+
 	}
-	
+
 	public void displayRobots() {
+		System.out.println();
+		System.out.println("List of robots:");
+		System.out.println();
 		for(int i = 0; i < robots.size(); i++) {
 			System.out.println((i+1) + ".)" + robots.get(i));
+			System.out.println();
 		}
 	}
-	
+
+	private Robot chooseRobot() {
+		System.out.println("Please select a robot from above:");
+		int selection = in.nextInt();
+		while(selection < 1 || selection > robots.size()) {
+			System.out.println("Invalid selection, please try again:");
+			selection = in.nextInt();
+		}
+		return robots.get(selection-1);
+	}
+
 	public void moveRobot() {
-		System.out.println("You chose to move a robot!");
-		
+		displayRobots();
+		Robot r = chooseRobot();
+		System.out.println("Enter a number of times " + r.getName() + " will move:");
+		int moveAmt = in.nextInt();
+		while(moveAmt < 1) {
+			System.out.println("Please enter a positive number of times to move:");
+			moveAmt = in.nextInt();
+		}
+		System.out.println(r.move(moveAmt));
 	}
-	
+
 	public void rotateRobot() {
-		System.out.println("You chose to rotate a robot!");
+		displayRobots();
+		Robot r = chooseRobot();
+		System.out.println("Which way do you want to rotate " + r.getName() + ": left or right?");
+		String selection = in.next();
+		while(!selection.equals("left") & !selection.equals("right")) {
+			System.out.println("Enter 'left' or 'right':");
+			selection = in.next();
+		}
+		if(selection.equals("left")) {
+			r.turnLeft();
+		} else {
+			r.turnRight();
+		}
 	}
-	
+
 	public void distanceBetween() {
-		System.out.println("You chose to find the distance between two robots!");
+		displayRobots();
+		Robot a = chooseRobot();
+		Robot b = chooseRobot();
+		System.out.println("Distance between " + a.getName() + " and " + b.getName() + " is: " + a.distanceFrom(b) + " units");
 	}
 
 
