@@ -10,7 +10,7 @@ public class Student {
 	private int studentID;
 	private int credits = 0;
 	private double GPA = 0;
-	private 
+	private ArrayList qualityScores;
 	
 	public Student(String firstName, String lastName, int studentID) {
 		this.firstName = firstName;
@@ -51,7 +51,9 @@ public class Student {
 			System.out.println("Invalid grade, please enter a new one below:");
 			courseGrade = in.nextInt();
 		} 
-		
+		int courseCredits = 4;
+		double qualityScore = courseCredits * courseGrade;
+		qualityScores.add()
 	}
 	
 	public static void main(String[] args) {
