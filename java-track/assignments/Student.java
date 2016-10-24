@@ -3,19 +3,22 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Student {
-	Scanner in = new Scanner(System.in);
+	private Scanner in;
 	
 	private String firstName;
 	private String lastName;
 	private int studentID;
 	private int credits = 0;
 	private double GPA = 0;
-	private ArrayList qualityScores;
+	private ArrayList<Double> qualityScores;
+	private int totalCredits;
 	
 	public Student(String firstName, String lastName, int studentID) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.studentID = studentID;
+		in = new Scanner(System.in);
+		qualityScores = new ArrayList<Double>();
 	}
 	
 	public String getName() {
@@ -31,7 +34,11 @@ public class Student {
 	}
 
 	public double getGPA() {
-		return this.GPA;
+		double totalQualityScores = 0;
+		for(int i = 0; i < this.qualityScores.size(); i++) {
+			totalQualityScores += this.qualityScores.get(i);
+		}
+		return totalQualityScores;
 	}
 	
 	public String getClassStanding() {
@@ -46,18 +53,31 @@ public class Student {
 		}
 	}
 	
-	public double submitGrade(int courseGrade) {
+	public void submitGrade(int courseGrade, int courseCredits) {
 		while(courseGrade < 0 || courseGrade > 4) {
 			System.out.println("Invalid grade, please enter a new one below:");
 			courseGrade = in.nextInt();
 		} 
-		int courseCredits = 4;
 		double qualityScore = courseCredits * courseGrade;
-		qualityScores.add()
+		qualityScores.add(qualityScore);
+		this.totalCredits += courseCredits;
+	}
+	
+	public void getQualityScores() {
+		for(int i = 0; i < this.qualityScores.size(); i++) {
+			System.out.println(this.qualityScores.get(i));
+		}
 	}
 	
 	public static void main(String[] args) {
 		Student bill = new Student("Bob", "Mitchler", 13398);
+		bill.submitGrade(1, 4);
+		bill.submitGrade(2, 4);
+		bill.submitGrade(3, 4);
+		bill.submitGrade(4, 4);
+		bill.getQualityScores();
+		System.out.println(bill.getGPA());
+
 	}
 
 }
