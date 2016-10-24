@@ -1,11 +1,16 @@
 
+import java.util.Scanner;
+import java.util.ArrayList;
+
 public class Student {
+	Scanner in = new Scanner(System.in);
 	
 	private String firstName;
 	private String lastName;
 	private int studentID;
 	private int credits = 0;
 	private double GPA = 0;
+	private 
 	
 	public Student(String firstName, String lastName, int studentID) {
 		this.firstName = firstName;
@@ -42,11 +47,15 @@ public class Student {
 	}
 	
 	public double submitGrade(int courseGrade) {
+		while(courseGrade < 0 || courseGrade > 4) {
+			System.out.println("Invalid grade, please enter a new one below:");
+			courseGrade = in.nextInt();
+		} 
 		
 	}
 	
 	public static void main(String[] args) {
-
+		Student bill = new Student("Bob", "Mitchler", 13398);
 	}
 
 }
