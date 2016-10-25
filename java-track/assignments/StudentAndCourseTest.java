@@ -140,7 +140,7 @@ public class StudentAndCourseTest extends TestCase {
 			assertTrue("student toString does not contain student ID", s.toString().contains("" + c));
 		}
 	}
-
+}
 
 
 
