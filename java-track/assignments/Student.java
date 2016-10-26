@@ -8,8 +8,8 @@ public class Student {
 	private String firstName;
 	private String lastName;
 	private int studentID;
-	private int credits = 0;
-	private double GPA = 0;
+	private int credits;
+	private double GPA;
 	private ArrayList<Double> qualityScores;
 	
 	
@@ -18,9 +18,19 @@ public class Student {
 		this.lastName = lastName;
 		this.studentID = studentID;
 		this.credits = 0;
-		this.GPA = 0.0;
+		this.GPA = 0.00;
 		in = new Scanner(System.in);
 		qualityScores = new ArrayList<Double>();
+	}
+	
+	public Student(String firstName, String lastName, int studentID, int credits, double GPA) {
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.studentID = studentID;
+			this.credits = credits;
+			this.GPA = GPA;
+			in = new Scanner(System.in);
+			qualityScores = new ArrayList<Double>();
 	}
 	
 	public String getName() {
@@ -36,16 +46,7 @@ public class Student {
 	}
 
 	public double getGPA() {
-		double totalQualityScores = 0;
-		for(int i = 0; i < this.qualityScores.size(); i++) {
-			totalQualityScores += this.qualityScores.get(i);
-		}
-		if(this.qualityScores.size() < 1) {
-			return 0.0;
-		}
-		double rawGPA = totalQualityScores/this.qualityScores.size();
-		double roundedGPA = (rawGPA * 1000) / 1000;
-		return roundedGPA;
+		return this.GPA;
 	}
 	
 	public String getClassStanding() {
@@ -62,12 +63,22 @@ public class Student {
 	
 	public void submitGrade(double courseGrade, double courseCredits) {
 		while(courseGrade < 0 || courseGrade > 4) {
-			System.out.println("Invalid grade, please a grade between 0 and 4: ");
+			System.out.println("Invalid grade, please enter a grade between 0 and 4: ");
 			courseGrade = in.nextInt();
 		} 
 		double qualityScore = courseCredits * courseGrade;
 		qualityScores.add(qualityScore);
 		this.credits += courseCredits;
+		
+		//computes new GPA
+		double totalQualityScores = 0;
+		for(int i = 0; i < this.qualityScores.size(); i++) {
+			totalQualityScores += this.qualityScores.get(i);
+		}
+		
+		double rawGPA = totalQualityScores / (double)this.credits;
+		double roundedGPA = (int)(rawGPA * 1000) / 1000.0;
+		this.GPA = roundedGPA;
 	}
 	
 	public void getQualityScores() {
@@ -79,15 +90,24 @@ public class Student {
 	public double computeTuition() {
 		int semester = this.credits / 15;
 		int leftover = this.credits % 15;
-		double tuition = (semester * 20000.0) + (leftover * (20000 / 15.0));
-		return (int)(tuition*100) / 100.0;
+		double tuition = (double)(semester * 20000.00) + (double)(leftover * 1333.33);
+		return tuition;
+	}
+	
+	public Student createLegacy(Student a, Student b) {
+		String legacyFirstName = a.getName();
+		String legacyLastName = b.getName();
+		int legacyID = a.studentID + b.studentID;
+		double legacyGPA = (a.getGPA() + b.getGPA()) / 2.00;
+		int legacyCredits = Math.max(a.getCredits(), b.getCredits());
+		return new Student(legacyFirstName, legacyLastName, legacyID, legacyCredits, legacyGPA);
 	}
 	
 	
 	public static void main(String[] args) {
 		Student bill = new Student("Bob", "Mitchler", 13398);
-		bill.submitGrade(1, 4);
-		bill.submitGrade(2, 4);
+		bill.submitGrade(4, 4);
+		bill.submitGrade(2, 1);
 		bill.submitGrade(4, 4);
 		bill.submitGrade(3, 3);
 		bill.getQualityScores();
