@@ -103,6 +103,10 @@ public class Student {
 		return new Student(legacyFirstName, legacyLastName, legacyID, legacyCredits, legacyGPA);
 	}
 	
+	public String toString() {
+		return "Name: " + this.getName() + " | ID: " + this.getStudentID();
+	}
+	
 	
 	public static void main(String[] args) {
 		Student bill = new Student("Bob", "Mitchler", 13398);
