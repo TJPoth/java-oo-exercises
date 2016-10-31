@@ -77,7 +77,7 @@ public class Student {
 		}
 		
 		double rawGPA = totalQualityScores / (double)this.credits;
-		double roundedGPA = (int)(rawGPA * 1000) / 1000.0;
+		double roundedGPA = Math.round(rawGPA * 1000) / 1000.0;
 		this.GPA = roundedGPA;
 	}
 	
