@@ -3,8 +3,8 @@ package encapsulation;
 public class Robot {
 
 	private String name;
-	private int x;
-	private int y;
+	protected int x;
+	protected int y;
 	private int speed;
 	private String orientation;
 
