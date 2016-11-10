@@ -1,6 +1,6 @@
 package encapsulation;
 
-public class Robot {
+public class Robot implements RobotBehavior {
 
 	private String name;
 	protected int x;
