@@ -30,13 +30,16 @@ public class Robot implements RobotBehavior {
 	}
 
 	public Robot(String name, int x, int y, int speed, String orientation) {
+		if(x < 0 || y < 0) {
+			throw new IllegalArgumentException();
+		}
 		this.name = name;
 		this.x = x;
 		this.y = y;
 		this.speed = speed;
 		this.orientation = orientation;
 	}
-
+	@Override
 	public String move(int turns) {
 		while(turns > 0) {
 			if (this.orientation.equals("north")) {
@@ -64,10 +67,10 @@ public class Robot implements RobotBehavior {
 		} else if (this.orientation.equals("west")) {
 			this.orientation = "south";
 		}
-		return "Your robot is now facing " + this.orientation;
+		return"Your robot is now facing " + this.orientation;
 	}
 
-	public void turnRight() {
+	public String turnRight() {
 		if (this.orientation.equals("north")) {
 			this.orientation = "east";
 		} else if (this.orientation.equals("south")) {
@@ -77,10 +80,9 @@ public class Robot implements RobotBehavior {
 		} else if (this.orientation.equals("west")) {
 			this.orientation = "north";
 		}
-		System.out.println("Your robot is now facing " + this.orientation);
-		return;
+		return"Your robot is now facing " + this.orientation;
 	}
-
+	@Override
 	public double distanceFrom(Robot otherBot) {
 		double distance = Math.sqrt(Math.pow(otherBot.x - this.x, 2) + (Math.pow(otherBot.y - this.y, 2)));
 		double roundedDistance = (int)(distance*100)/100.0;
@@ -93,8 +95,14 @@ public class Robot implements RobotBehavior {
 	}
 
 	public static void main(String[] args) {
-		Robot Alpha = new Robot("Alpha", 1, 1, 3, "north");
-		System.out.println(Alpha.move(3));
+		try {
+			Robot Alpha = new Robot("Alpha", -1, 1, 3, "north");
+			System.out.println(Alpha.move(3));
+		}
+		catch (IllegalArgumentException e) {
+			System.out.println("Cannot create Robot");
+			e.printStackTrace();
+		}
 
 
 	}

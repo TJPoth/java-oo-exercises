@@ -2,8 +2,9 @@ package encapsulation;
 
 public interface RobotBehavior {
 	
-	public void move();
-	public void turnLeft();
-	public void turnRight();
-	public void distanceFrom();
+	public String move(int turns);
+	public String turnLeft();
+	public String turnRight();
+	public double distanceFrom(Robot other);
+	
 }
