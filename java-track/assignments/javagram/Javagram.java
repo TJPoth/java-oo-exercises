@@ -13,31 +13,31 @@ public class Javagram {
 		// Create the base path for images		
 		String[] baseParts = {System.getProperty("user.dir"), "images"};
 		String dir = String.join(File.separator, baseParts);
-		String relPath;
+		String relPath = null;
 		Picture picture = null;
 		Scanner in = new Scanner(System.in);
-		
+
 		// prompt user for image to filter and validate input
 		do {
-			
+
 			String imagePath = "path not set";
-			
+
 			// try to open the file
 			try {
-				
+
 				System.out.println("Image path (relative to " + dir + "):");
 				relPath = in.next();
-				
+
 				imagePath = dir + File.separator + relPath;
-				
+
 				picture = new Picture(imagePath);
-				
+
 			} catch (RuntimeException e) {
 				System.out.println("Could not open image: " + imagePath);
 			}
-			
+
 		} while(picture == null);
-		
+
 		// TODO - prompt user for filter and validate input
 		// TODO - pass filter ID int to getFilter, and get an instance of Filter back 
 		Filter filter = displayFilterMenu(in);			
@@ -45,28 +45,38 @@ public class Javagram {
 		// filter and display image
 		Picture processed = filter.process(picture);
 		processed.show();
-		
+
 		System.out.println("Image successfully filtered");
-		
+
 		// save image, if desired
-		
+
 		System.out.println("Save image to (relative to " + dir + ") (type 'exit' to quit w/o saving):");
 		String fileName = in.next();
-		
+
 		// TODO - if the user enters the same file name as the input file, confirm that they want to overwrite the original
-		
+
 		if (fileName.equals("exit")) {
 			System.out.println("Image not saved");
+		} else if (fileName.equals(relPath)) {
+			System.out.println("Do you want to overwrite: " + relPath + "? (yes/no)");
+			String saveChoice = in.next();
+			if (saveChoice.equals("no")) {
+				System.out.println("Please enter a new file name:");
+				fileName = in.next();
+			}
+			String absFileName = dir + File.separator + fileName;
+			processed.save(absFileName);
+			System.out.println("Image not saved to " + absFileName);
 		} else {
 			String absFileName = dir + File.separator + fileName;
 			processed.save(absFileName);
 			System.out.println("Image saved to " + absFileName);
 		}	
-		
+
 		// close input scanner
 		in.close();
 	}
-	
+
 	private static Filter displayFilterMenu(Scanner in) {
 		System.out.println("Welcome to the filter selection menu!");
 		System.out.println("Type number next to desired filter:");
@@ -96,9 +106,9 @@ public class Javagram {
 		else {
 			return null;
 		}
-		 
+
 		// TODO - create some more filters, and add logic to return the appropriate one
-		
+
 	}
 
 }
