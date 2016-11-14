@@ -39,9 +39,8 @@ public class Javagram {
 		} while(picture == null);
 		
 		// TODO - prompt user for filter and validate input
-		
 		// TODO - pass filter ID int to getFilter, and get an instance of Filter back 
-		BlueFilter filter = getFilter();			
+		Filter filter = displayFilterMenu(in);			
 
 		// filter and display image
 		Picture processed = filter.process(picture);
@@ -68,12 +67,37 @@ public class Javagram {
 		in.close();
 	}
 	
+	private static Filter displayFilterMenu(Scanner in) {
+		System.out.println("Welcome to the filter selection menu!");
+		System.out.println("Type number next to desired filter:");
+		System.out.println("1. Blue Filter");
+		System.out.println("2. Green Filter");
+		System.out.println("3. Red Filter");
+		int selection = in.nextInt();
+		while (selection <= 0 || selection > 3) {
+			System.out.println("Please choose a valid option:");
+			selection = in.nextInt();
+		}
+		return getFilter(selection);
+	}
 	// TODO - refactor this method to accept an int parameter, and return an instance of the Filter interface
 	// TODO - refactor this method to thrown an exception if the int doesn't correspond to a filter
-	private static BlueFilter getFilter() {
-		
+	private static Filter getFilter(int selection) {
+		if(selection == 1) {
+			System.out.println("You successfully chose BlueFilter!");
+			return new BlueFilter();
+		} else if (selection == 2) {
+			System.out.println("You successfully chose Green Filter!");
+			return new GreenFilter();
+		} else if (selection == 3) {
+			System.out.println("You successfully chose Red Filter!");
+			return new RedFilter();
+		}
+		else {
+			return null;
+		}
+		 
 		// TODO - create some more filters, and add logic to return the appropriate one
-		return new BlueFilter();
 		
 	}
 
