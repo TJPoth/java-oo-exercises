@@ -1,4 +1,4 @@
-hpackage javagram;
+package javagram;
 
 import javagram.filters.*;
 

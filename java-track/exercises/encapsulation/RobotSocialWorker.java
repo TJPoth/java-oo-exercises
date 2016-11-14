@@ -43,7 +43,7 @@ public class RobotSocialWorker extends Robot {
 	public static void main(String[] args) {
 		RobotSocialWorker bill = new RobotSocialWorker("Bill", 0, 0, 2, "north", "southern");
 		Robot fred = new Robot("Fred", 1, 1, 4, "west");
-		System.out.println(bill.greeting(fred));
+		System.out.println(bill.goodbye(fred));
 
 	}
 
